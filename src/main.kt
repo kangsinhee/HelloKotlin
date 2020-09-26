@@ -1,5 +1,3 @@
-import java.util.Scanner
-
 open class Base {
     fun sum(a: Int, b: Int): Int {
         return a + b
