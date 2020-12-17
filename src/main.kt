@@ -3,24 +3,24 @@ open class Base {
         return a + b
     }
 }
+
 class print : Base() {
-    fun K_print(sum : Any) {
+    fun K_print(sum: Any) {
         println("Result")
         println("< " + sum + " > ")
     }
 }
 
-fun maxOf(a: Int, b: Int) : Int {
+fun maxOf(a: Int, b: Int): Int {
     if (a > b) {
         return a
-    }
-    else {
+    } else {
         return b
     }
 }
 
 
-fun printProduct(arg1: String, arg2: String) {
+fun printProduct(arg1: String, arg2: String): Unit {
     // nullable
     val x: Int? = Integer.parseInt(arg1)
     val y: Int? = Integer.parseInt(arg2)
@@ -34,7 +34,7 @@ fun printProduct(arg1: String, arg2: String) {
 
 // 자동 타입 변환
 // Any는 object의 최상위 객체
-fun getStringLength(obj: Any): Int?{
+fun getStringLength(obj: Any): Int? {
     if (obj is String) {
         // obj가 자동으로 string 타입으로 변환
         return obj.length
@@ -54,9 +54,32 @@ fun describe(obj: Any): String {
     return a
 }
 
-fun main(src:Array<String>) {
-    var i : Int
-    var j : Int
+data class Fruit(val name: String, val num: Int)
+
+fun sum(a: Int, b: Int) = a + b
+fun mul(a: Int, b: Int) = a * b
+
+enum class Color(val r: Int, val g: Int, val b: Int) {
+    RED(255, 0, 0), ORANGE(255, 165, 0), YELLOW(255, 255, 0),
+    GREEN(0, 255, 0), BLUE(0, 0, 255),
+    INDIGO(75, 0, 130), VIOLET(238, 130, 238);
+
+    fun rgb() = (r * 256 + g) * 256 + b
+}
+
+//setter
+class test {
+    var save: String = ""
+        private set(value) {
+            field = value
+        }
+        get
+
+}
+
+fun main(src: Array<String>) {
+    var i: Int
+    var j: Int
     var a = 1
     var b = 2
     var sum: Int
@@ -99,11 +122,10 @@ fun main(src:Array<String>) {
     println("x : $x, {1 ~ 10}")
     if (x in 1..10) {
         println("in range")
-    }
-    else {
+    } else {
         println("Not in range")
     }
-    for(y in 1..5) println(y)
+    for (y in 1..5) println(y)
 
     println("\n< collection >")
     for (item in items) {
@@ -120,4 +142,18 @@ fun main(src:Array<String>) {
             .sortedBy { it }
             .map { it.toUpperCase() }
             .forEach { println(it) }
+
+    val fruit = listOf(Fruit("banana", 12), Fruit("avocado", 5), Fruit("apple", 13))
+    println(fruit.maxBy { it.num })
+
+    val res1 = sum(3, 2)
+    val res2 = mul(sum(3, 3), 3) // mul 함수의 인자로 sum 함수의 반환 값 전달
+
+    println("res1 : $res1, res2 : $res2")
+
+    println(Color.BLUE.rgb())
+
+    var test = test()
+    test.save = "setter"
+    print("Value: " + test.save)
 }
